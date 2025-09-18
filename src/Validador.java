@@ -1,25 +1,25 @@
 public class Validador {
 
     public static boolean validarCPF(String cpf) {
-        // Nulo ou vazio
+        // 1. Nulo ou vazio
         if (cpf == null || cpf.trim().isEmpty()) {
             return false;
         }
 
-        // Sanitiza: tira espaços e caracteres da máscara
+        // 2. Sanitiza: remove espaços e caracteres da máscara
         String limpo = cpf.trim().replaceAll("[.-]", "");
 
-        // Verifica se são exatamente 11 dígitos
+        // 3. Verifica se tem exatamente 11 dígitos
         if (!limpo.matches("\\d{11}")) {
             return false;
         }
 
-        // Rejeita sequências repetidas (00000000000, 11111111111, etc.)
+        // 4. Rejeita sequências repetidas (ex.: "00000000000")
         if (limpo.chars().distinct().count() == 1) {
             return false;
         }
 
-        // 👉 Para o Passo 1: consideramos válido até aqui
+        // 👉 Ainda não estamos validando DV (isso virá depois)
         return true;
     }
 }
